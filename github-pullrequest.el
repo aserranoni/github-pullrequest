@@ -73,9 +73,9 @@
   "Create a Github Pull Request using the current branch as head and master branch as base and ACCESS-TOKEN."
   (progn
     (message "Creating pull request...")
-    (request (concat (github-pullrequest-get-repo-api-base) (concat "pulls?access_token=" access-token))
+    (request (github-pullrequest-get-repo-api-base)
              :type "POST"
-             :headers '(("Content-Type" . "application/json"))
+             :headers '(("Content-Type" . "application/json") ("Authentication" . (format "token %s" access-token)))
              :data  (json-encode
                      (list (cons "title" (github-pullrequest-name-from-branch (magit-get-current-branch)))
                            (cons "head" (magit-get-current-branch))
